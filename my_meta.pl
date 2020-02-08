@@ -1,12 +1,12 @@
 :- use_module(library(sets)).
 
-myRule/2.
+rule/2.
 
 % SLD Resolution
 
 sld( [] ).
 sld( [ X | XS ] ) :-
-  myRule( X, YS ),
+  rule( X, YS ),
   append( XS, YS, ZS ),
   sld( ZS ).
 
@@ -16,13 +16,13 @@ lhm( XS ) :- nextSet( XS, XS ).
 
 nextSet( XS, YS ) :- findall( X, bodyInSet( X, XS ), YS ).
 
-bodyInSet( X, YS ) :- myRule( X, T ), subset( T, YS ).
+bodyInSet( X, YS ) :- rule( X, T ), subset( T, YS ).
 
 % SLDNF resolution
 
 sldnf( [] ).
 sldnf( [ X | XS ] ) :-
-  myRule( X, YS ),
+  rule( X, YS ),
   append( XS, YS, ZS ),
   sldnf( ZS ).
 sldnf( [ not( X ) | XS ] ) :-
@@ -35,7 +35,7 @@ stableModel( XS ) :- nextSetReduct( XS, XS ).
 
 nextSetReduct( XS, YS ) :- findall( X, rBodyInSet( X, XS ), YS ).
 
-rBodyInSet( X, YS ) :- myRule( X, T ), contained( T, YS ).
+rBodyInSet( X, YS ) :- rule( X, T ), contained( T, YS ).
 
 contained( [], _ ).
 contained( [ not(X) | XS ], YS ) :- \+ member( X, YS ), contained( XS, YS ).
