@@ -36,7 +36,7 @@ stableModel/1 takes as input a list of atoms, succeeding if the list is a stable
 
 Example:
 ```
-given
+given:
 myRule(p,[q,not(r)]). 
 myRule(q,[]).
 
